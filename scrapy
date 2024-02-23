@@ -1,0 +1,72 @@
+from Auto_Selenium import iniciar_driver # Função já devidamente configurada para acessar o navegador
+from selenium.webdriver.common.by import By # Ferramenta que auxilia na filtragem dos elementos
+from time import sleep # Ferramenta que permite controlar o tempo de cada etapa
+import csv # Biblioteca que permite salvar os dados
+
+# Entrar no site
+driver = iniciar_driver()
+driver.get('https://leiloeiropublico.com.br/')
+sleep(5)
+driver.execute_script('window.scrollTo(0, 1400);')
+sleep(5)
+# driver.execute_script('window.scrollTo(0, 1800);')
+# sleep(5)
+# driver.execute_script('window.scrollTo(0, 2200);')
+# sleep(5)
+# driver.execute_script('window.scrollTo(0, 2600);')
+# sleep(5)
+
+
+# Ir no 1º Leilão
+# XPATH Todos os botões =
+#leilao = driver.find_element(By.XPATH, '//*[@id="idbotao"]')
+
+scroll = 1800
+cont = 0
+leiloes = list(driver.find_elements(By.XPATH, '//p[@id="frase"]'))
+#print(leiloes[0])
+for c in range(0, len(leiloes)):
+    #leiloes[c].click()
+
+    driver.execute_script('arguments[0].click()', leiloes[c])
+    sleep(10)
+
+    driver.back()
+    sleep(12)
+
+    # Controle de Scroll
+    cont += 1
+    if cont == 2:
+        driver.execute_script(f'window.scrollTo(0, {scroll});')
+        scroll += 400
+        cont = 0
+
+
+
+
+
+    # # Pegar os dados
+    # dados = {}
+    #
+    # nome = driver.find_element(By.XPATH, '//span[@id="ctl00_SectionConteudo_CabecalhoLeilao1_TituloLeilao"]')
+    # dado_1 = driver.find_element(By.XPATH, '//*[@id="section-listagem-lote"]/section')
+    # dado_2 = driver.find_element(By.XPATH, '//*[@id="sublotes"]')
+    #
+    # dados[nome.text] = [dado_1.text, dado_2.text]
+    #
+    # with open('dados.csv', 'w', newline='') as csvfile:
+    #     #csvfile.write(str(dados))
+    #     d = list(dados.items())
+    #     csvfile.write(str(d[0][0]))
+    #     csvfile.write(str(d[0][1]))
+    #     csvfile.write('  ')
+    #
+    # csvfile.close()
+    # sleep(5)
+    #
+
+
+
+    #d = list(dados.items())
+    #print(d[0][0])
+    #print(d[0][1])
